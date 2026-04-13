@@ -5,22 +5,25 @@ on:
 
 jobs:
   build:
-
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x       
+
     - name: Restore dependencies
       run: dotnet restore WebCon.Plugins.Signing.Autenti.sln
+
     - name: Build
-      run: dotnet build WebCon.Plugins.Signing.Autenti.sln  --no-restore --configuration Release 
+      run: dotnet build WebCon.Plugins.Signing.Autenti.sln --no-restore --configuration Release 
+
     - uses: actions/upload-artifact@v4
       with:
-        name: WebCon.Plugins.Signing.Autenti${{ matrix.runs-on }}
+        name: WebCon.Plugins.Signing.Autenti
         path: |
           WebCon.Plugins.Signing.Autenti/bin/Release/net9.0/WebCon.Plugins.Signing.Autenti.dll
           WebCon.Plugins.Signing.Autenti/bin/Release/net9.0/WebCon.Plugins.Signing.Autenti.json
