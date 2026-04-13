@@ -1,11 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCon.Plugins.Signing.Autenti", "WebCon.Plugins.Signing.Autenti\WebCon.Plugins.Signing.Autenti.csproj", "{F8CD2ABD-3ACE-4CAF-B449-3CFAC5E66A2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCon.Plugins.Signing.Autenti.Tests", "WebCon.Plugins.Signing.Autenti.Tests\WebCon.Plugins.Signing.Autenti.Tests.csproj", "{C19BCC17-DB7A-4472-A0EF-7325133404D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{F8CD2ABD-3ACE-4CAF-B449-3CFAC5E66A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8CD2ABD-3ACE-4CAF-B449-3CFAC5E66A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8CD2ABD-3ACE-4CAF-B449-3CFAC5E66A2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C19BCC17-DB7A-4472-A0EF-7325133404D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C19BCC17-DB7A-4472-A0EF-7325133404D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C19BCC17-DB7A-4472-A0EF-7325133404D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C19BCC17-DB7A-4472-A0EF-7325133404D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
