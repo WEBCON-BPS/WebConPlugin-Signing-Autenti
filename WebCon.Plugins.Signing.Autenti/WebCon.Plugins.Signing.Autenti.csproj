@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup Label="MainConfig">
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4fce86d1-18f5-490a-affb-f2c9342ff275}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebCon.Plugins.Signing.Autenti</RootNamespace>
+    <AssemblyName>WebCon.Plugins.Signing.Autenti</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>temporary_key.snk</AssemblyOriginatorKeyFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	 <LangVersion>13.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Api\AutentiApiException.cs" />
+    <Compile Include="Api\AutentiApiService.cs" />
+    <Compile Include="Api\AutentiClientProvider.cs" />
+    <Compile Include="Api\AutentiHttpClient.cs" />
+    <Compile Include="Api\DocumentLockException.cs" />
+    <Compile Include="Api\DocumentProcessRequestBuilder.cs" />
+    <Compile Include="Api\HttpResponseMessageExtensions.cs" />
+    <Compile Include="Api\IAutentiApiService.cs" />
+    <Compile Include="Api\IAutentiHttpClient.cs" />
+    <Compile Include="Api\IDocumentProcessRequestBuilder.cs" />
+    <Compile Include="Api\Models\ApiLinkResponse.cs" />
+    <Compile Include="Api\Models\AssertionPayload.cs" />
+    <Compile Include="Api\Models\AutentiConsts.cs" />
+    <Compile Include="Api\Models\DocumentDetailsResponse.cs" />
+    <Compile Include="Api\Models\DocumentFileInfo.cs" />
+    <Compile Include="Api\Models\DocumentProcessRequest.cs" />
+    <Compile Include="Api\Models\DocumentProcessResponse.cs" />
+    <Compile Include="Api\Models\IdentificationProfile.cs" />
+    <Compile Include="Api\Models\ReminderChallengeRequest.cs" />
+    <Compile Include="Api\Models\ReminderChallengeResponse.cs" />
+    <Compile Include="Api\Models\RequestDto.cs" />
+    <Compile Include="Common\AuthorizationConfig.cs" />
+    <Compile Include="Common\DocumentStatusInput.cs" />
+    <Compile Include="GetDocument\GetDocumentAction.cs" />
+    <Compile Include="GetDocument\GetDocumentConfig.cs" />
+    <Compile Include="GetStatuses\GetDocumentStatusAction.cs" />
+    <Compile Include="GetStatuses\GetDocumentStatusConfig.cs" />
+    <Compile Include="GetStatuses\GetRecipientsSignatureStatusAction.cs" />
+    <Compile Include="GetStatuses\GetRecipientsSignatureStatusConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendForSignature\Providers\AttachmentsProvider.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\CoreDataEnricher.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\IItemListRowContext.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\IPartyEnricher.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\ItemListRowContext.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\OrganizationRepresentativeEnricher.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\SignatureEnricher.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\SigningOrderEnricher.cs" />
+    <Compile Include="SendForSignature\Providers\Enrichers\SmsEnricher.cs" />
+    <Compile Include="SendForSignature\Providers\IAttachmentsProvider.cs" />
+    <Compile Include="SendForSignature\Providers\IPartiesProvider.cs" />
+    <Compile Include="SendForSignature\Providers\OrganizationSenderProvider.cs" />
+    <Compile Include="SendForSignature\Providers\PartiesProvider.cs" />
+    <Compile Include="SendForSignature\Providers\PartiesValidator.cs" />
+    <Compile Include="SendForSignature\SendForSignatureAction.cs" />
+    <Compile Include="SendForSignature\SendForSignatureConfig.cs" />
+    <Compile Include="SendReminder\SendReminderAction.cs" />
+    <Compile Include="SendReminder\SendReminderConfig.cs" />
+    <Compile Include="SignLink\GetSignLink.cs" />
+    <Compile Include="SignLink\GetSignLinkConfig.cs" />
+    <Compile Include="Sources\DocumentStatus.cs" />
+    <Compile Include="Sources\RecipentRoles.cs" />
+    <Compile Include="Sources\RecipentRolesConfig.cs" />
+    <Compile Include="Sources\RecipientSignatureStatus.cs" />
+    <Compile Include="Sources\SignatureTypes.cs" />
+    <Compile Include="Sources\SignatureTypesConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SendForSignature\Diagram.md" />
+    <None Include="WebCon.Plugins.Signing.Autenti.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="temporary_key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Publish\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WEBCON.BPS.2025.SDK.Libraries" Version="25.1.1.15" />
+	 <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+  </ItemGroup>
+</Project>
