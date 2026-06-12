@@ -27,6 +27,7 @@ public class AutentiApiService : IAutentiApiService
             .WithOrganizationSender(config.DocumentDetails)
             .WithSignatureVisualisation(config.DocumentDetails)
             .WithAttachmentsAsync()
+            .WithTags()
             .BuildAsync();
 
         _logger?.AppendInfo($"Request built: {request.DocumentRequest.Parties?.Count ?? 0} parties, {request.Files?.Count ?? 0} files");

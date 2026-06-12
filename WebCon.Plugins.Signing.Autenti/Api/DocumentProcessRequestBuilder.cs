@@ -13,6 +13,7 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
 {
     private readonly IPartiesProvider _partiesProvider;
     private readonly IAttachmentsProvider _attachmentsProvider;
+    private readonly ITagsProvider _tagsProvider;
     private readonly PluginLogger _logger;
 
     private string _title;
@@ -24,14 +25,17 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
     private List<Party> _parties = [];
     private List<FileData> _files = [];
     private List<Constraint> _constraints = [];
+    private List<Tag> _tags = [];
 
     public DocumentProcessRequestBuilder(
         IPartiesProvider participantsProvider,
         IAttachmentsProvider attachmentsProvider,
+        ITagsProvider tagsProvider,
         PluginLogger logger)
     {
         _partiesProvider = participantsProvider;
         _attachmentsProvider = attachmentsProvider;
+        _tagsProvider = tagsProvider;
         _logger = logger;
     }
 
@@ -59,6 +63,13 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
         {
             _parties.Insert(0, OrganizationSenderProvider.Create());
         });
+        return this;
+    }
+
+    public IDocumentProcessRequestBuilder WithTags()
+    {
+        _logger?.AppendDebug($"Builder with tags");
+        _tags = _tagsProvider.GetTags();
         return this;
     }
 
@@ -120,8 +131,8 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
                 Description = _description,
                 ProcessLanguage = _processLanguage,
                 Parties = _parties,
-                Tags = [] ,
-                Constraints = _constraints
+                Constraints = _constraints,
+                Tags = _tags
             },
             Files = _files
         };            
