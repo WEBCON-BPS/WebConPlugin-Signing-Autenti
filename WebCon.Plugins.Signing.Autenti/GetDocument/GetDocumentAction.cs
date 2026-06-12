@@ -36,7 +36,7 @@ public class GetDocumentAction : CustomAction<GetDocumentConfig>
 
     private async Task<AutentiHttpClient> CreateHttpClientAsync(ActionContextInfo context)
     {
-        var clientProvider = new AutentiClientProvider(new ConnectionsHelper(context), Configuration.Authorization);
+        var clientProvider = new AutentiClientProvider(new ConnectionsHelper(context), Configuration.Authorization, context.PluginLogger);
         var authenticatedClient = await clientProvider.GetAuthenticatedClientAsync();
         return new AutentiHttpClient(authenticatedClient, context.PluginLogger);
     }

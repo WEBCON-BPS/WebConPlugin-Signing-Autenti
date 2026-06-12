@@ -37,8 +37,8 @@ public class DocumentDetailsConfig
     [ConfigEditableText("Message to receipients")]
     public string MessageToReceipients { get; set; }
 
-    [ConfigStudioTranslation("Język procesu", TranslationCulture.plPL)]
-    [ConfigEditableText("Process language", true, DefaultText = "pl")]
+    [ConfigStudioTranslation("Język procesu", TranslationCulture.plPL, Description = "Dopuszczalne wartości: cs, da, de, el, en, es, fi, fr, ga, hr, hu, it, lt, lv, mt, nl, no, pl, ro, ru, sk, sl, sv, uk")]
+    [ConfigEditableText("Process language", true, DefaultText = "pl", Description = "Allowed values: cs, da, de, el, en, es, fi, fr, ga, hr, hu, it, lt, lv, mt, nl, no, pl, ro, ru, sk, sl, sv, uk")]
     public string ProcessLanguage { get; set; }
 
     [ConfigStudioTranslation("Wyślij jako organizacja", TranslationCulture.plPL)]
@@ -48,6 +48,14 @@ public class DocumentDetailsConfig
     [ConfigStudioTranslation("Wizualizacja podpisu", TranslationCulture.plPL)]
     [ConfigEditableEnum("Visual representation of the signature")]
     public SignatureRepresentation SignatureVisualRepresentation { get; set; }
+
+    [ConfigStudioTranslation("ID etykiety", TranslationCulture.plPL, Description = "Przy przekazaniu wielu etykiet wartości należy rozdzielić za pomocą średnika np. IdEtykiety1;IdEtykiety2")]
+    [ConfigEditableText("Label ID", Description = "When passing multiple labels, values should be separated with a semicolon e.g. LabelId1;LabelId2")]
+    public string TagsId { get; set; }
+
+    [ConfigStudioTranslation("Pole z etykietami", TranslationCulture.plPL, Description = "Pole wyboru z etykietami, id wartości w źródle powinno odpowiadać id etykiety")]
+    [ConfigEditableFormFieldID("Labels field", FormFieldTypes = FormFieldTypes.Choice, Description = "Choice field with labels, ID in the source should correspond to the label ID")]
+    public int? TagsIdFieldId { get; set; }
 }
 
 public enum SignatureRepresentation
@@ -98,8 +106,8 @@ public class RecipentsConfig
     [ConfigEditableItemList("Recipients list")]
     public RecipentsListConfig RecipentsList { get; set; }
 
-    [ConfigStudioTranslation("Uwzględnij kolejność podpisów", TranslationCulture.plPL)]
-    [ConfigEditableBool("Include Signing Order")]
+    [ConfigStudioTranslation("Uwzględnij kolejność podpisów", TranslationCulture.plPL, Description = "Pole powinno zawierać tekst \"False\" lub \"True\"")]
+    [ConfigEditableText("Include Signing Order", IsRequired = true, DefaultText = "False", Description = "The field should contain the text \"False\" or \"True\"")]
     public bool IncludeSigningOrder { get; set; }
 }
 
@@ -107,9 +115,13 @@ public class RecipentsListConfig : IConfigEditableItemList
 {
     public int ItemListId { get; set; }
 
-    [ConfigStudioTranslation("Imię i nazwisko", TranslationCulture.plPL)]
-    [ConfigEditableItemListColumnID("Name", true)]
-    public int Name { get; set; }
+    [ConfigStudioTranslation("Imię", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("First name", true)]
+    public int FirstName { get; set; }
+
+    [ConfigStudioTranslation("Nazwisko", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Last name", true)]
+    public int LastName { get; set; }
 
     [ConfigStudioTranslation("Email", TranslationCulture.plPL)]
     [ConfigEditableItemListColumnID("Email", true)]
@@ -164,12 +176,4 @@ public class ResponseConfig
 {
     [ConfigEditableFormFieldID("Autenti ID")]
     public int AutentiId { get; set; }
-
-    [ConfigStudioTranslation("Link do dokumentu w Autenti", TranslationCulture.plPL)]
-    [ConfigEditableFormFieldID("Link to the document in Autenti", FormFieldTypes = FormFieldTypes.TextSingleLine)]
-    public int DocumentLink { get; set; }
-
-    [ConfigStudioTranslation("Status w Autenti", TranslationCulture.plPL)]
-    [ConfigEditableFormFieldID("Autenti Status")]
-    public int AutentiStatus { get; set; }
 }

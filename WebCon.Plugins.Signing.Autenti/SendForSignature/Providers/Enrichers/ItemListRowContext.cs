@@ -22,7 +22,8 @@ public class ItemListRowContext(ItemRowData row, RecipentsListConfig columns) : 
     private bool? GetBoolValue(int? columnId)
         => columnId.HasValue ? row.BooleanCells.GetByID(columnId.Value).Value : null;
 
-    public string Name => GetValue(columns.Name);
+    public string FirstName => GetValue(columns.FirstName);
+    public string LastName => GetValue(columns.LastName);
     public string Email => GetValue(columns.Email);
     public string Role => GetValue(columns.Role);
     public string SignatureType => GetValue(columns.SignatureType);

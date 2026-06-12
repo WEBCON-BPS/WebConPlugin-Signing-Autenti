@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using WebCon.Plugins.Signing.Autenti.Api.Models;
 using WebCon.WorkFlow.SDK.Common;
 using WebCon.WorkFlow.SDK.Common.Model;
 using WebCon.WorkFlow.SDK.DataSourcePlugins;
@@ -10,13 +11,14 @@ namespace WebCon.Plugins.Signing.Autenti.Sources;
 
 public class RecipientSignatureStatus : CustomDataSource<PluginConfiguration>
 {
-    private static readonly (string id, string value, string translation)[] Statuses =
+    private static readonly (string id, string value, string translationPL, string translationDE)[] Statuses =
     [
-        ("NONE", "Not started", "Nierozpoczęty"),
-        ("PENDING", "Pending", "Oczekujący"),
-        ("COMPLETED", "Completed", "Zakończony"),
-        ("OBSOLETE", "Obsolete", "Nieaktualny"),
-        ("FAILED", "Failed", "Niepowodzenie"),
+        (AutentiStatuses.None, "Not started", "Nierozpoczęty", "Nicht begonnen"),
+        (AutentiStatuses.Pending, "Pending", "Oczekujący", "Ausstehend"),
+        (AutentiStatuses.Completed, "Completed", "Zakończony", "Abgeschlossen"),
+        (AutentiStatuses.Obsolete, "Obsolete", "Nieaktualny", "Veraltet"),
+        (AutentiStatuses.Failed, "Failed", "Niepowodzenie", "Fehlgeschlagen"),
+        (AutentiStatuses.Rejected, "Rejected", "Odrzucony", "Abgelehnt"),
     ];
 
     public override Task<List<DataSourceColumn>> GetColumnsAsync()
@@ -25,6 +27,7 @@ public class RecipientSignatureStatus : CustomDataSource<PluginConfiguration>
            new("ID"),
            new("Name"),
            new("Name_PL"),
+           new("Name_DE"),
        });
 
     public override Task<DataTable> GetDataAsync(SearchConditions searchConditions)
@@ -33,9 +36,10 @@ public class RecipientSignatureStatus : CustomDataSource<PluginConfiguration>
         table.Columns.Add("ID", typeof(string));
         table.Columns.Add("Name", typeof(string));
         table.Columns.Add("Name_PL", typeof(string));
+        table.Columns.Add("Name_DE", typeof(string));
 
-        foreach (var (id, value, translation) in Statuses)
-            table.Rows.Add(id, value, translation);
+        foreach (var (id, value, translationPL, translationDE) in Statuses)
+            table.Rows.Add(id, value, translationPL, translationDE);
 
         return Task.FromResult(table);
     }

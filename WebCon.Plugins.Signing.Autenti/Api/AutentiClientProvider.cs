@@ -9,19 +9,20 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WebCon.Plugins.Signing.Autenti.Common;
+using WebCon.WorkFlow.SDK.Common;
 using WebCon.WorkFlow.SDK.Tools.Data;
 using WebCon.WorkFlow.SDK.Tools.Data.Model;
 
 namespace WebCon.Plugins.Signing.Autenti.Api;
 
-public class AutentiClientProvider(ConnectionsHelper connectionsHelper, AuthorizationConfig config)
+public class AutentiClientProvider(ConnectionsHelper connectionsHelper, AuthorizationConfig config, PluginLogger logger)
 {
     public async Task<HttpClient> GetAuthenticatedClientAsync()
     {
         var autentiService = connectionsHelper.GetConnectionToWebService(new GetByConnectionParams(config.ConnectionId));
         var pem = connectionsHelper.GetConnectionToWebService(new GetByConnectionParams(config.PemConnectionId)).ClientSecret;
 
-        var assertion = CreateJwtAssertion(pem);
+        var assertion = CreateJwtAssertion(pem, config.KeyId);
         var accessToken = await ExchangeAssertionForTokenAsync(autentiService, assertion);
 
         var httpClient = new HttpClient(GetProxyHandler(autentiService.Url));
@@ -31,7 +32,7 @@ public class AutentiClientProvider(ConnectionsHelper connectionsHelper, Authoriz
         return httpClient;
     }
 
-    private string CreateJwtAssertion(string pem)
+    private string CreateJwtAssertion(string pem, string kid)
     {
         using var rsa = ImportPrivateKeyFromPem(pem);
         var securityKey = new RsaSecurityKey(rsa.ExportParameters(true))
@@ -53,10 +54,12 @@ public class AutentiClientProvider(ConnectionsHelper connectionsHelper, Authoriz
             { "email_verified", true },
         };
 
-        var header = new JwtHeader(new SigningCredentials(securityKey, SecurityAlgorithms.RsaSha256))
+        var header = new JwtHeader(new SigningCredentials(securityKey, SecurityAlgorithms.RsaSha256));
+
+        if (!string.IsNullOrEmpty(kid))
         {
-            ["kid"] = "autenti-key"
-        };
+            header["kid"] = kid;
+        }
 
         var token = new JwtSecurityToken(header, payload);
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -74,7 +77,7 @@ public class AutentiClientProvider(ConnectionsHelper connectionsHelper, Authoriz
 
         using var tokenHttpClient = new HttpClient(GetProxyHandler(autentiService.AuthorizationServiceUrl));
         var response = await tokenHttpClient.PostAsync(autentiService.AuthorizationServiceUrl, requestBody);
-        response.EnsureSuccessStatusCode();
+        await response.EnsureSuccessOrThrowWithBodyAsync(logger);
 
         var json = await response.Content.ReadAsStringAsync();
         var tokenResponse = JsonSerializer.Deserialize<TokenResponse>(json);
