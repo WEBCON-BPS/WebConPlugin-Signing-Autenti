@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using WebCon.Plugins.Signing.Autenti.Api.Models;
 
 namespace WebCon.Plugins.Signing.Autenti.SendForSignature.Providers.Enrichers;
@@ -13,10 +11,8 @@ public class CoreDataEnricher : IPartyEnricher
     {
         var participant = new Participant();
 
-        var (firstName, lastName) = SplitName(row.Name);
-        participant.FirstName = firstName;
-        participant.LastName = lastName;
-        participant.Name = row.Name;
+        participant.FirstName = row.FirstName;
+        participant.LastName = row.LastName;
         participant.Contacts = CreateContacts(row.Email);
 
         party.Participant = participant;
@@ -35,14 +31,5 @@ public class CoreDataEnricher : IPartyEnricher
                 Attributes = new ContactAttributes { Email = email.Trim() }
             }
         ];
-    }
-
-    private static (string firstName, string lastName) SplitName(string fullName)
-    {
-        if (string.IsNullOrWhiteSpace(fullName))
-            return (null, null);
-
-        var parts = fullName.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        return (parts.First(), parts.Last());
     }
 }

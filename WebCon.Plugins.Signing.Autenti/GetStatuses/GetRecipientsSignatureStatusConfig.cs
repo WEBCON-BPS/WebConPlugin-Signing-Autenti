@@ -30,10 +30,6 @@ public class RecipientsList : IConfigEditableItemList
 {
     public int ItemListId { get; set; }
 
-    [ConfigStudioTranslation("Imię i nazwisko", TranslationCulture.plPL)]
-    [ConfigEditableItemListColumnID("Name", true)]
-    public int Name { get; set; }
-
     [ConfigEditableItemListColumnID("Email", true)]
     public int Email { get; set; }
 
@@ -44,4 +40,8 @@ public class RecipientsList : IConfigEditableItemList
     [ConfigStudioTranslation("Status podpisu", TranslationCulture.plPL)]
     [ConfigEditableItemListColumnID("Signature Status", true)]
     public int SignatureStatus { get; set; }
+
+    [ConfigStudioTranslation("Powód odrzucenia", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Rejection reason", true)]
+    public int RejectionReason { get; set; }
 }

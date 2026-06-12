@@ -6,6 +6,17 @@ public static class AutentiActions
     public const string SignatureApplication = "ACTION:SIGNATURE_APPLICATION";
 }
 
+public static class AutentiActionsStatus
+{
+    public const string Available = "AVAILABLE";
+}
+
+public static class AutentiEvents
+{
+    public const string SIGNATURE_REJECTION = "EVENT_CLASSIFIER-UNIQUE_TYPE:SIGNATURE_REJECTION";
+    public const string DOCUMENT_WITHDRAWAL = "EVENT_CLASSIFIER-UNIQUE_TYPE:DOCUMENT_WITHDRAWAL";
+}
+
 public static class AutentiClassifiers
 {
     public const string ActionSelection = "CHALLENGE_CLASSIFIER-UNIQUE_TYPE:ACTION_SELECTION";
@@ -37,6 +48,17 @@ public static class AutentiRoles
     public const string Reviewer = "REVIEWER";
     public const string Viewer = "VIEWER";
 }
+
+public static class AutentiStatuses
+{
+    public const string None = "NONE";
+    public const string Pending = "PENDING";
+    public const string Completed = "COMPLETED";
+    public const string Obsolete = "OBSOLETE";
+    public const string Failed = "FAILED";
+    public const string Rejected = "REJECTED";
+}
+
 
 public static class AutentiSignatureTypes
 {

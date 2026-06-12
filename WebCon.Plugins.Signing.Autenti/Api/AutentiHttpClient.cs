@@ -23,6 +23,7 @@ public class AutentiHttpClient(HttpClient httpClient, PluginLogger logger) : IAu
 
     private static readonly string SendDocumentAssertion = BuildSendDocumentAssertion();
     private static readonly string SendReminderAssertion = BuildSendReminderAssertion();
+    private static readonly string DocumentWithdrawalAssertion = BuildDocumentWithdrawalAssertion();
 
     private static string BuildSendDocumentAssertion()
     {
@@ -54,6 +55,21 @@ public class AutentiHttpClient(HttpClient httpClient, PluginLogger logger) : IAu
         return Convert.ToBase64String(Encoding.UTF8.GetBytes(json));
     }
 
+    private static string BuildDocumentWithdrawalAssertion()
+    {
+        var payload = new AssertionPayload
+        {
+            Classifiers = [AutentiClassifiers.ActionSelection],
+            Attributes = new AssertionAttributes
+            {
+                SelectedIds = [AutentiEvents.DOCUMENT_WITHDRAWAL]
+            }
+        };
+
+        var json = JsonSerializer.Serialize(payload, JsonOptions);
+        return Convert.ToBase64String(Encoding.UTF8.GetBytes(json));
+    }
+
     public async Task<DocumentProcessResponse> CreateDocumentProcessAsync(DocumentProcessRequest request)
     {
         var json = JsonSerializer.Serialize(request, JsonOptions);
@@ -66,6 +82,29 @@ public class AutentiHttpClient(HttpClient httpClient, PluginLogger logger) : IAu
         var responseJson = await response.Content.ReadAsStringAsync();
         logger.AppendDebug($"Create document response: {responseJson}");
         return JsonSerializer.Deserialize<DocumentProcessResponse>(responseJson, JsonOptions);
+    }
+
+    public async Task<List<TagsResponse>> GetTagsAsync()
+    {
+        var response = await httpClient.GetAsync("/api/v2/tags");
+        await response.EnsureSuccessOrThrowWithBodyAsync(logger);
+        var responseJson = await response.Content.ReadAsStringAsync();
+        logger.AppendDebug($"Get tags response: {responseJson}");
+
+        if (!responseJson.Trim().StartsWith('['))
+            responseJson = "[" + responseJson.Replace("}", "},").Trim().Trim(',') + "]";
+        
+        return JsonSerializer.Deserialize<List<TagsResponse>>(responseJson, JsonOptions);
+    }
+
+    public async Task<List<ParticipantsDetailsResponse>> GetDetailsOfParticipantsAsync(string documentId)
+    {
+        var response = await httpClient.GetAsync($"/api/v2/document-processes/{documentId}/parties");
+        await response.EnsureSuccessOrThrowWithBodyAsync(logger);
+        var responseJson = await response.Content.ReadAsStringAsync();
+        logger.AppendDebug($"Get Details Of Participants response: {responseJson}");
+
+        return JsonSerializer.Deserialize<List<ParticipantsDetailsResponse>>(responseJson, JsonOptions);
     }
 
     public async Task AddFilesToDocumentAsync(List<FileData> files, string documentId)
@@ -156,6 +195,19 @@ public class AutentiHttpClient(HttpClient httpClient, PluginLogger logger) : IAu
         request.Headers.Add("Accept", "application/json");
         request.Headers.Add("X-ASSERTION", SendReminderAssertion);
         request.Headers.Add("X-ASSERTION", selectedRecipientsAsseration);
+
+        var response = await httpClient.SendAsync(request);
+        await response.EnsureSuccessOrThrowWithBodyAsync(logger);
+    }
+
+    public async Task DocumentWithdrawalAsync(string documentId)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Post, $"/api/v2/document-processes/{documentId}/actions")
+        {
+            Content = new StringContent("{}", Encoding.UTF8, "application/json")
+        };
+        request.Headers.Add("Accept", "application/json");
+        request.Headers.Add("X-ASSERTION", DocumentWithdrawalAssertion);
 
         var response = await httpClient.SendAsync(request);
         await response.EnsureSuccessOrThrowWithBodyAsync(logger);

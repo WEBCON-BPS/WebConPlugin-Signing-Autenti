@@ -11,5 +11,6 @@ public interface IDocumentProcessRequestBuilder
     IDocumentProcessRequestBuilder WithSignatureVisualisation(DocumentDetailsConfig config);
     IDocumentProcessRequestBuilder WithParticipantsAsync();
     IDocumentProcessRequestBuilder WithAttachmentsAsync();
+    IDocumentProcessRequestBuilder WithTags();
     Task<RequestDto> BuildAsync();
 }

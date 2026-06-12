@@ -14,7 +14,7 @@ public class GetDocumentStatusAction : CustomAction<GetDocumentStatusConfig>
     {
         try
         {
-            var clientProvider = new AutentiClientProvider(new ConnectionsHelper(args.Context), Configuration.Authorization);
+            var clientProvider = new AutentiClientProvider(new ConnectionsHelper(args.Context), Configuration.Authorization, args.Context.PluginLogger);
             var authenticatedClient = await clientProvider.GetAuthenticatedClientAsync();
             using var httpClient = new AutentiHttpClient(authenticatedClient, args.Context.PluginLogger);
 

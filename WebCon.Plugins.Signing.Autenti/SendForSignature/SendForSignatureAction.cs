@@ -17,7 +17,7 @@ public class SendForSignatureAction : CustomAction<SendForSignatureConfig>
         {
             args.Context.PluginLogger.AppendInfo("Prepare autenti service");
 
-            var clientProvider = new AutentiClientProvider(new ConnectionsHelper(args.Context), Configuration.Authorization);
+            var clientProvider = new AutentiClientProvider(new ConnectionsHelper(args.Context), Configuration.Authorization, args.Context.PluginLogger);
             var authenticatedClient = await clientProvider.GetAuthenticatedClientAsync();
             using var httpClient = new AutentiHttpClient(authenticatedClient, args.Context.PluginLogger);
 
@@ -28,8 +28,6 @@ public class SendForSignatureAction : CustomAction<SendForSignatureConfig>
 
             args.Context.PluginLogger.AppendInfo("Set response to fields");
             await args.Context.CurrentDocument.SetFieldValueAsync(Configuration.Response.AutentiId, response.Id);
-            await args.Context.CurrentDocument.SetFieldValueAsync(Configuration.Response.DocumentLink, response.DocumentLink);
-            await args.Context.CurrentDocument.SetFieldValueAsync(Configuration.Response.AutentiStatus, response.Status);
         }
         catch (Exception ex)
         {
@@ -44,8 +42,9 @@ public class SendForSignatureAction : CustomAction<SendForSignatureConfig>
         var enrichers = CreateEnrichers();
         var participantsProvider = new PartiesProvider(enrichers, Configuration.Recipents, context);
         var attachmentsProvider = new AttachmentsProvider(Configuration.Attachments, context);
+        var tagsProvider = new TagsProvider(Configuration.DocumentDetails, context);
 
-        var requestBuilder = new DocumentProcessRequestBuilder(participantsProvider, attachmentsProvider, context.PluginLogger);
+        var requestBuilder = new DocumentProcessRequestBuilder(participantsProvider, attachmentsProvider, tagsProvider, context.PluginLogger);
 
         return new AutentiApiService(requestBuilder, httpClient, context.PluginLogger);
     }

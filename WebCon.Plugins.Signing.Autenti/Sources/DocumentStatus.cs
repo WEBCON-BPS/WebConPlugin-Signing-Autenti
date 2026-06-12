@@ -14,9 +14,11 @@ public class DocumentStatus : CustomDataSource<PluginConfiguration>
     [
         "PROCESSING",
         "SUCCESS",
+        "COMPLETED ",
         "FAILED",
         "WITHDRAWN",
-        "ERROR"
+        "ERROR",
+        "REJECTED"
     ];
 
     public override Task<List<DataSourceColumn>> GetColumnsAsync()

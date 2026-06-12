@@ -18,7 +18,7 @@ public class GetRecipientsSignatureStatusAction : CustomAction<GetRecipientsSign
     {
         try
         {
-            var clientProvider = new AutentiClientProvider(new ConnectionsHelper(args.Context), Configuration.Authorization);
+            var clientProvider = new AutentiClientProvider(new ConnectionsHelper(args.Context), Configuration.Authorization, args.Context.PluginLogger);
             var authenticatedClient = await clientProvider.GetAuthenticatedClientAsync();
             using var httpClient = new AutentiHttpClient(authenticatedClient, args.Context.PluginLogger);
 
@@ -43,10 +43,10 @@ public class GetRecipientsSignatureStatusAction : CustomAction<GetRecipientsSign
     private List<RecipientStatus> MapToRecipientStatuses(List<DocumentParty> parties)
         => [.. parties.Select(p => new RecipientStatus
         {
-            Name = p.Party.Name,
             Email = p.Party.Contacts.FirstOrDefault()?.Attributes.Email,
             Role = p.Role,
-            ParticipationStatus = p.ParticipationStatus
+            ParticipationStatus = p.Events?.FirstOrDefault(x => x?.EventType == AutentiEvents.SIGNATURE_REJECTION)?.Attributes?.Comment != null ? AutentiStatuses.Rejected : p.ParticipationStatus,
+            RejectionReason = p.Events?.FirstOrDefault(x => x?.EventType == AutentiEvents.SIGNATURE_REJECTION)?.Attributes?.Comment
         })];
 
     private async Task UpdateItemListAsync(ItemsList list, List<RecipientStatus> recipients)
@@ -58,20 +58,23 @@ public class GetRecipientsSignatureStatusAction : CustomAction<GetRecipientsSign
             var existingRow = list.Rows.FirstOrDefault(r => IsMatchingRow(r, recipient));
 
             if (existingRow != null)
-                await existingRow.SetCellValueAsync(mapper.SignatureStatus, recipient.ParticipationStatus);       
+            {
+                await existingRow.SetCellValueAsync(mapper.SignatureStatus, recipient.ParticipationStatus);
+                await existingRow.SetCellValueAsync(mapper.RejectionReason, recipient.RejectionReason);
+            }
+                   
         }
     }
 
     private bool IsMatchingRow(ItemRowData r, RecipientStatus recipent)
-        => r.GetCellValue(Configuration.Response.RecipientsListMapper.Name)?.ToString() == recipent.Name &&
-           r.GetCellValue(Configuration.Response.RecipientsListMapper.Email)?.ToString() == recipent.Email &&
+        => r.GetCellValue(Configuration.Response.RecipientsListMapper.Email)?.ToString() == recipent.Email &&
            r.GetCellValue(Configuration.Response.RecipientsListMapper.Role)?.ToString()?.Split("#")?.FirstOrDefault() == recipent.Role;
 }
 
 internal class RecipientStatus
 {
-    public string Name { get; set; }
     public string Email { get; set; }
     public string Role { get; set; }
     public string ParticipationStatus { get; set; }
+    public string RejectionReason { get; set; }
 }

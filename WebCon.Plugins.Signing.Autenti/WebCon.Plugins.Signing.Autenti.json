@@ -1,88 +1,112 @@
 {
-  "extensions": [
-    {
-      "guid": "bbec1725-4e08-4076-8ec3-a30af1fedbae",
-      "name": "[AUTENTI API] Send Reminders",
-      "description": "This action allows to send a reminder to signers who have not yet completed their task",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.SendReminder.SendReminderAction",
-      "type": "CustomAction"
-    },
-    {
-      "guid": "3c7b2c0a-25d4-4836-ad78-acb33e0b360a",
-      "name": "[AUTENTI API] Get link for sign",
-      "description": "This action allows to download a direct link to the signature for each signer",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.SignLink.GetSignLink",
-      "type": "CustomAction"
-    },
-    {
-      "guid": "ac32231a-50e7-40de-b53b-f692ef054160",
-      "name": "[AUTENTI API] Get document",
-      "description": "This action allows to download the document with the certificate once the signing process is complete",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.GetDocument.GetDocumentAction",
-      "type": "CustomAction"
-    },
-    {
-      "guid": "ba34852b-661c-4620-b5d6-b902203fb2ef",
-      "name": "[AUTENTI] Recipent roles",
-      "description": "Data source with available recipient roles",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.Sources.RecipentRoles",
-      "type": "CustomDataSource"
-    },
-    {
-      "guid": "b1108416-9070-4bf0-b3f4-4a2d71df6ccc",
-      "name": "[AUTENTI] Signature types",
-      "description": "Data source with available signature types",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.Sources.SignatureTypes",
-      "type": "CustomDataSource"
-    },
-    {
-      "guid": "19b19bb1-391e-48bd-bd45-cf577ca05ab9",
-      "name": "[AUTENTI] Recipient signature status",
-      "description": "Data source with available recipient signature statuses",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.Sources.RecipientSignatureStatus",
-      "type": "CustomDataSource"
-    },
-    {
-      "guid": "ae29f1fb-ef47-435c-a298-7ac7bfbe5e7c",
-      "name": "[AUTENTI] Document status",
-      "description": "Data source with available document statuses",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.Sources.DocumentStatus",
-      "type": "CustomDataSource"
-    },
-    {
-      "guid": "3f42004d-ee34-4d7f-901a-69a6c02c4987",
-      "name": "[AUTENTI API] Get recipients signature status",
-      "description": "This action allows to get signing status for each person",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.GetStatuses.GetRecipientsSignatureStatusAction",
-      "type": "CustomAction"
-    },
-    {
-      "guid": "e87ba063-4405-41e2-93eb-1c0caabb9bdc",
-      "name": "[AUTENTI API] Get document status",
-      "description": "This action allows to get status of signing process",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.GetStatuses.GetDocumentStatusAction",
-      "type": "CustomAction"
-    },
-    {
-      "guid": "369ca9e0-b552-4bb5-ae64-a4833294961b",
-      "name": "[AUTENTI API] Send for signature",
-      "description": "This action allows to start the signing process",
-      "assembly": "WebCon.Plugins.Signing.Autenti",
-      "class": "WebCon.Plugins.Signing.Autenti.SendForSignature.SendForSignatureAction",
-      "type": "CustomAction"
-    }
-  ],
-  "dependencies": [
-    "WebCon.Plugins.Signing.Autenti"
-  ],
-  "version": "26"
+    "extensions": [
+        {
+            "guid": "3693ba54-a01c-4d0a-bb2b-9e2a14f466a4",
+            "name": "[AUTENTI API] Document Withdrawal",
+            "description": " Actions allow to withdraw document",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Withdrawal.WithdrawalAction",
+            "type": "CustomAction"
+        },
+        {
+            "guid": "cef76467-a68b-4d16-8837-2e7fa1c2e7da",
+            "name": "[AUTENTI] Available Languages",
+            "description": "Languages available to use in signing process",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Sources.AvailableLanguages",
+            "type": "CustomDataSource"
+        },
+        {
+            "guid": "22a21b54-3fbd-4635-9170-53cc8d3ed876",
+            "name": "[AUTENTI API] Available labels",
+            "description": "Data source with available labels",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Sources.AvailableTags",
+            "type": "CustomDataSource"
+        },
+        {
+            "guid": "bbec1725-4e08-4076-8ec3-a30af1fedbae",
+            "name": "[AUTENTI API] Send Reminders",
+            "description": "This action allows to send a reminder to signers who have not yet completed their task",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.SendReminder.SendReminderAction",
+            "type": "CustomAction"
+        },
+        {
+            "guid": "3c7b2c0a-25d4-4836-ad78-acb33e0b360a",
+            "name": "[AUTENTI API] Get link for sign",
+            "description": "This action allows to download a direct link to the signature for each signer",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.SignLink.GetSignLink",
+            "type": "CustomAction"
+        },
+        {
+            "guid": "ac32231a-50e7-40de-b53b-f692ef054160",
+            "name": "[AUTENTI API] Get document",
+            "description": "This action allows to download the document with the certificate once the signing process is complete",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.GetDocument.GetDocumentAction",
+            "type": "CustomAction"
+        },
+        {
+            "guid": "ba34852b-661c-4620-b5d6-b902203fb2ef",
+            "name": "[AUTENTI] Recipent roles",
+            "description": "Data source with available recipient roles",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Sources.RecipentRoles",
+            "type": "CustomDataSource"
+        },
+        {
+            "guid": "b1108416-9070-4bf0-b3f4-4a2d71df6ccc",
+            "name": "[AUTENTI] Signature types",
+            "description": "Data source with available signature types",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Sources.SignatureTypes",
+            "type": "CustomDataSource"
+        },
+        {
+            "guid": "19b19bb1-391e-48bd-bd45-cf577ca05ab9",
+            "name": "[AUTENTI] Recipient signature status",
+            "description": "Data source with available recipient signature statuses",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Sources.RecipientSignatureStatus",
+            "type": "CustomDataSource"
+        },
+        {
+            "guid": "ae29f1fb-ef47-435c-a298-7ac7bfbe5e7c",
+            "name": "[AUTENTI] Document status",
+            "description": "Data source with available document statuses",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.Sources.DocumentStatus",
+            "type": "CustomDataSource"
+        },
+        {
+            "guid": "3f42004d-ee34-4d7f-901a-69a6c02c4987",
+            "name": "[AUTENTI API] Get recipients signature status",
+            "description": "This action allows to get signing status for each person",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.GetStatuses.GetRecipientsSignatureStatusAction",
+            "type": "CustomAction"
+        },
+        {
+            "guid": "e87ba063-4405-41e2-93eb-1c0caabb9bdc",
+            "name": "[AUTENTI API] Get document status",
+            "description": "This action allows to get status of signing process",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.GetStatuses.GetDocumentStatusAction",
+            "type": "CustomAction"
+        },
+        {
+            "guid": "369ca9e0-b552-4bb5-ae64-a4833294961b",
+            "name": "[AUTENTI API] Send for signature",
+            "description": "This action allows to start the signing process",
+            "assembly": "WebCon.Plugins.Signing.Autenti",
+            "class": "WebCon.Plugins.Signing.Autenti.SendForSignature.SendForSignatureAction",
+            "type": "CustomAction"
+        }
+    ],
+    "dependencies": [
+        "WebCon.Plugins.Signing.Autenti"
+    ],
+    "version": "26"
 }

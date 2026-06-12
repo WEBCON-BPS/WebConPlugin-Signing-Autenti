@@ -23,9 +23,9 @@ public class PartiesValidator(bool includeSigningOrder)
     {
         foreach (var row in rows)
         {
-            if (string.IsNullOrWhiteSpace(row.Name))
+            if (string.IsNullOrWhiteSpace(row.FirstName) || string.IsNullOrWhiteSpace(row.LastName))
                 throw new InvalidOperationException(
-                    "Recipient name is required. Ensure all recipients have a name specified.");
+                    "Recipient last name and first name are required. Ensure all recipients have a name specified.");
 
             if (string.IsNullOrWhiteSpace(row.Email))
                 throw new InvalidOperationException(
