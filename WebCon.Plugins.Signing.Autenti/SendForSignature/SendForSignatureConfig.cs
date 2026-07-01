@@ -106,8 +106,8 @@ public class RecipentsConfig
     [ConfigEditableItemList("Recipients list")]
     public RecipentsListConfig RecipentsList { get; set; }
 
-    [ConfigStudioTranslation("Uwzględnij kolejność podpisów", TranslationCulture.plPL, Description = "Pole powinno zawierać tekst \"False\" lub \"True\"")]
-    [ConfigEditableText("Include Signing Order", IsRequired = true, DefaultText = "False", Description = "The field should contain the text \"False\" or \"True\"")]
+    [ConfigStudioTranslation("Uwzględnij kolejność podpisów", TranslationCulture.plPL)]
+    [ConfigEditableBool("Include Signing Order")]
     public bool IncludeSigningOrder { get; set; }
 }
 

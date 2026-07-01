@@ -1,5 +1,4 @@
 using System;
-using System.Buffers.Text;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -24,7 +23,7 @@ internal static class HttpResponseMessageExtensions
         var challengeInfo = TryDecodeChallengeHeader(response);
         if (challengeInfo is not null)
         {
-            if(challengeInfo.Contains(LockClassifier, StringComparison.InvariantCultureIgnoreCase))
+            if(challengeInfo.Contains(LockClassifier))
             {
                 logger.AppendInfo($"Document locked: {challengeInfo}");
                 throw new DocumentLockException();
@@ -62,7 +61,8 @@ internal static class HttpResponseMessageExtensions
 
     private static byte[] DecodeBase64(string value)
     {
-        var normalized = value.Replace('+', '-').Replace('/', '_').TrimEnd('=');
-        return Base64Url.DecodeFromChars(normalized);
+        var base64 = value.Replace('-', '+').Replace('_', '/');
+        base64 = base64.PadRight(base64.Length + (4 - base64.Length % 4) % 4, '=');
+        return Convert.FromBase64String(base64);
     }
 }
