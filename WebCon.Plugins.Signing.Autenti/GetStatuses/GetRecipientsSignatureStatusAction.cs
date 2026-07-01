@@ -68,7 +68,7 @@ public class GetRecipientsSignatureStatusAction : CustomAction<GetRecipientsSign
 
     private bool IsMatchingRow(ItemRowData r, RecipientStatus recipent)
         => r.GetCellValue(Configuration.Response.RecipientsListMapper.Email)?.ToString() == recipent.Email &&
-           r.GetCellValue(Configuration.Response.RecipientsListMapper.Role)?.ToString()?.Split("#")?.FirstOrDefault() == recipent.Role;
+           r.GetCellValue(Configuration.Response.RecipientsListMapper.Role)?.ToString()?.Split('#')?.FirstOrDefault() == recipent.Role;
 }
 
 internal class RecipientStatus
