@@ -52,11 +52,16 @@
     <Compile Include="Api\Models\ApiLinkResponse.cs" />
     <Compile Include="Api\Models\AssertionPayload.cs" />
     <Compile Include="Api\Models\AutentiConsts.cs" />
+    <Compile Include="Api\Models\ApiLinkResponse.cs" />
+    <Compile Include="Api\Models\ParticipantsDetailsResponse.cs" />
+    <Compile Include="Api\Models\ReminderChallengeRequest.cs" />
+    <Compile Include="Api\Models\ReminderChallengeResponse.cs" />
     <Compile Include="Api\Models\DocumentDetailsResponse.cs" />
     <Compile Include="Api\Models\DocumentFileInfo.cs" />
     <Compile Include="Api\Models\DocumentProcessRequest.cs" />
     <Compile Include="Api\Models\DocumentProcessResponse.cs" />
     <Compile Include="Api\Models\IdentificationProfile.cs" />
+    <Compile Include="Api\Models\TagsResponse.cs" />
     <Compile Include="Api\Models\ReminderChallengeRequest.cs" />
     <Compile Include="Api\Models\ReminderChallengeResponse.cs" />
     <Compile Include="Api\Models\RequestDto.cs" />
@@ -79,8 +84,10 @@
     <Compile Include="SendForSignature\Providers\Enrichers\SigningOrderEnricher.cs" />
     <Compile Include="SendForSignature\Providers\Enrichers\SmsEnricher.cs" />
     <Compile Include="SendForSignature\Providers\IAttachmentsProvider.cs" />
+    <Compile Include="SendForSignature\Providers\ITagsProvider.cs" />
     <Compile Include="SendForSignature\Providers\IPartiesProvider.cs" />
     <Compile Include="SendForSignature\Providers\OrganizationSenderProvider.cs" />
+    <Compile Include="SendForSignature\Providers\TagsProvider.cs" />
     <Compile Include="SendForSignature\Providers\PartiesProvider.cs" />
     <Compile Include="SendForSignature\Providers\PartiesValidator.cs" />
     <Compile Include="SendForSignature\SendForSignatureAction.cs" />
@@ -89,12 +96,17 @@
     <Compile Include="SendReminder\SendReminderConfig.cs" />
     <Compile Include="SignLink\GetSignLink.cs" />
     <Compile Include="SignLink\GetSignLinkConfig.cs" />
+    <Compile Include="Sources\AvailableLanguages.cs" />
+    <Compile Include="Sources\AvailableTags.cs" />
+    <Compile Include="Sources\AvailableTagsConfig.cs" />
     <Compile Include="Sources\DocumentStatus.cs" />
     <Compile Include="Sources\RecipentRoles.cs" />
     <Compile Include="Sources\RecipentRolesConfig.cs" />
     <Compile Include="Sources\RecipientSignatureStatus.cs" />
     <Compile Include="Sources\SignatureTypes.cs" />
     <Compile Include="Sources\SignatureTypesConfig.cs" />
+    <Compile Include="Withdrawal\WithdrawalAction.cs" />
+    <Compile Include="Withdrawal\WithdrawalConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SendForSignature\Diagram.md" />

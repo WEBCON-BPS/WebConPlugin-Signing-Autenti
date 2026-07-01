@@ -2,7 +2,8 @@ namespace WebCon.Plugins.Signing.Autenti.SendForSignature.Providers.Enrichers;
 
 public interface IItemListRowContext
 {
-    string Name { get; }
+    string FirstName { get; }
+    string LastName { get; }
     string Email { get; }
     string Role { get; }
     string SignatureType { get; }

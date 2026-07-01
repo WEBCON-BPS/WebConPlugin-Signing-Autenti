@@ -1,5 +1,29 @@
-{
+﻿{
   "extensions": [
+    {
+      "guid": "3693ba54-a01c-4d0a-bb2b-9e2a14f466a4",
+      "name": "[AUTENTI API] Document Withdrawal",
+      "description": " Actions allow to withdraw document",
+      "assembly": "WebCon.Plugins.Signing.Autenti",
+      "class": "WebCon.Plugins.Signing.Autenti.Withdrawal.WithdrawalAction",
+      "type": "CustomAction"
+    },
+    {
+      "guid": "cef76467-a68b-4d16-8837-2e7fa1c2e7da",
+      "name": "[AUTENTI] Available Languages",
+      "description": "Languages available to use in signing process",
+      "assembly": "WebCon.Plugins.Signing.Autenti",
+      "class": "WebCon.Plugins.Signing.Autenti.Sources.AvailableLanguages",
+      "type": "CustomDataSource"
+    },
+    {
+      "guid": "22a21b54-3fbd-4635-9170-53cc8d3ed876",
+      "name": "[AUTENTI API] Available labels",
+      "description": "Data source with available labels",
+      "assembly": "WebCon.Plugins.Signing.Autenti",
+      "class": "WebCon.Plugins.Signing.Autenti.Sources.AvailableTags",
+      "type": "CustomDataSource"
+    },
     {
       "guid": "bbec1725-4e08-4076-8ec3-a30af1fedbae",
       "name": "[AUTENTI API] Send Reminders",

@@ -11,4 +11,7 @@ public interface IAutentiHttpClient
     Task SendDocumentAsync(string documentId);
     Task<ReminderChallengeResponse> GetAvailableRecipientsToSendReminderAsync(string documentId);
     Task SendReminderAsync(string documentId, string selectedRecipientsAsseration);
+    Task<List<TagsResponse>> GetTagsAsync();
+    Task DocumentWithdrawalAsync(string documentId);
+    Task<List<ParticipantsDetailsResponse>> GetDetailsOfParticipantsAsync(string documentId);
 }

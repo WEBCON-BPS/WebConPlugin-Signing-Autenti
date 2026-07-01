@@ -25,6 +25,24 @@ public class DocumentParty
 
     [JsonPropertyName("participationStatus")]
     public string ParticipationStatus { get; set; }
+
+    [JsonPropertyName("events")]
+    public List<DocumentPartyEvent> Events { get; set; } = [];
+}
+
+public class DocumentPartyEvent
+{
+    [JsonPropertyName("eventType")]
+    public string EventType { get; set; }
+
+    [JsonPropertyName("attributes")]
+    public DocumentPartyEventAttributes Attributes { get; set; }
+}
+
+public class DocumentPartyEventAttributes
+{
+    [JsonPropertyName("comment")]
+    public string Comment { get; set; }
 }
 
 public class PartyIdentity
