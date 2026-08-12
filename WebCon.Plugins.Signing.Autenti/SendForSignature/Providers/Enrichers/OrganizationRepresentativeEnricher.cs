@@ -49,14 +49,14 @@ public class OrganizationRepresentativeEnricher : IPartyEnricher
             throw new InvalidOperationException(
                 $"VAT value '{vat}' is too short. Expected format: country code (2 letters) followed by tax identifier, e.g. 'PL1234567890'.");
 
-        var countryCode = vat[..countryCodeLength];
+        var countryCode = vat.Substring(0, countryCodeLength);
 
         if (!char.IsLetter(countryCode[0]) || !char.IsLetter(countryCode[1]))
             throw new InvalidOperationException(
                 $"VAT value '{vat}' must start with a 2-letter country code (e.g. 'PL', 'DE'). Got '{countryCode}'.");
 
         countryCode = countryCode.ToUpperInvariant();
-        var identifier = vat[countryCodeLength..];
+        var identifier = vat.Substring(countryCodeLength);
 
         return ($"TAXID-{countryCode}-NIP", identifier);
     }

@@ -12,7 +12,7 @@ public class TagsProvider( DocumentDetailsConfig config, ActionContextInfo conte
     {
         var tags = new List<Tag>();
 
-        foreach (var tagId in config.TagsId?.Split(";"))
+        foreach (var tagId in config.TagsId?.Split(';'))
             if (!string.IsNullOrEmpty(tagId))
                 AddTagIfNotExists(tags, tagId.Trim());
 
@@ -25,7 +25,7 @@ public class TagsProvider( DocumentDetailsConfig config, ActionContextInfo conte
             return tags;
 
 
-        foreach (var tag in tagsPicker?.Split(";").Where(x => !string.IsNullOrEmpty(x)))
+        foreach (var tag in tagsPicker?.Split(';').Where(x => !string.IsNullOrEmpty(x)))
         {
             var tagId = TextHelper.GetPairId(tag.Trim()).Trim();
 
