@@ -28,6 +28,9 @@ public class DocumentParty
 
     [JsonPropertyName("events")]
     public List<DocumentPartyEvent> Events { get; set; } = [];
+
+    [JsonPropertyName("constraints")]
+    public List<Constraint> Constraints { get; set; } = [];
 }
 
 public class DocumentPartyEvent
@@ -50,8 +53,20 @@ public class PartyIdentity
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
+    [JsonPropertyName("firstName")]
+    public string FirstName { get; set; }
+
+    [JsonPropertyName("lastName")]
+    public string LastName { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
     [JsonPropertyName("contacts")]
     public List<PartyContact> Contacts { get; set; } = [];
+
+    [JsonPropertyName("relationships")]
+    public List<Relationship> Relationships { get; set; } = [];
 }
 
 public class PartyContact

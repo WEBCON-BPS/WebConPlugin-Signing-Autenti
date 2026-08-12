@@ -44,4 +44,48 @@ public class RecipientsList : IConfigEditableItemList
     [ConfigStudioTranslation("Powód odrzucenia", TranslationCulture.plPL)]
     [ConfigEditableItemListColumnID("Rejection reason", true)]
     public int RejectionReason { get; set; }
+
+    [ConfigStudioTranslation("Autenti ID", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Autenti ID")]
+    public int? AutentiId { get; set; }
+
+    [ConfigStudioTranslation("Imię", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("First name")]
+    public int? FirstName { get; set; }
+
+    [ConfigStudioTranslation("Nazwisko", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Last name")]
+    public int? LastName { get; set; }
+
+    [ConfigStudioTranslation("Rodzaj podpisu", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Signature Type")]
+    public int? SignatureType { get; set; }
+
+    [ConfigStudioTranslation("Numer telefonu", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Phone Number")]
+    public int? PhoneNumber { get; set; }
+
+    [ConfigStudioTranslation("Autoryzacja odbiorcy kodem SMS", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Recipient SMS authorization", ItemListColumnTypes = ItemListColumnTypes.Boolean)]
+    public int? SmsAuthorization { get; set; }
+
+    [ConfigStudioTranslation("Zabezpieczenie dokumentu kodem SMS", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Unlock document by SMS", ItemListColumnTypes = ItemListColumnTypes.Boolean)]
+    public int? SmsUnlock { get; set; }
+
+    [ConfigStudioTranslation("Rodzaj odbiorcy lub Reprezentant organizacji", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Representative of the organisation", ItemListColumnTypes = ItemListColumnTypes.Boolean)]
+    public int? Representative { get; set; }
+
+    [ConfigStudioTranslation("NIP", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("VAT")]
+    public int? VAT { get; set; }
+
+    [ConfigStudioTranslation("Nazwa organizacji", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Name of organisation")]
+    public int? OrganisationName { get; set; }
+
+    [ConfigStudioTranslation("Stanowisko w organizacji", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Position in the organisation")]
+    public int? Position { get; set; }
 }

@@ -8,7 +8,7 @@ public interface IDocumentProcessRequestBuilder
 {
     IDocumentProcessRequestBuilder WithDocumentDetails(DocumentDetailsConfig config);
     IDocumentProcessRequestBuilder WithOrganizationSender(DocumentDetailsConfig config);
-    IDocumentProcessRequestBuilder WithSignatureVisualisation(DocumentDetailsConfig config);
+    IDocumentProcessRequestBuilder WithSignatureVisualisation();
     IDocumentProcessRequestBuilder WithParticipantsAsync();
     IDocumentProcessRequestBuilder WithAttachmentsAsync();
     IDocumentProcessRequestBuilder WithTags();

@@ -14,6 +14,7 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
     private readonly IPartiesProvider _partiesProvider;
     private readonly IAttachmentsProvider _attachmentsProvider;
     private readonly ITagsProvider _tagsProvider;
+    private readonly ISignatureVisualisationProvider _signatureVisualisationProvider;
     private readonly PluginLogger _logger;
 
     private string _title;
@@ -31,11 +32,13 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
         IPartiesProvider participantsProvider,
         IAttachmentsProvider attachmentsProvider,
         ITagsProvider tagsProvider,
+        ISignatureVisualisationProvider signatureVisualisationProvider,
         PluginLogger logger)
     {
         _partiesProvider = participantsProvider;
         _attachmentsProvider = attachmentsProvider;
         _tagsProvider = tagsProvider;
+        _signatureVisualisationProvider = signatureVisualisationProvider;
         _logger = logger;
     }
 
@@ -73,26 +76,10 @@ public class DocumentProcessRequestBuilder : IDocumentProcessRequestBuilder
         return this;
     }
 
-    public IDocumentProcessRequestBuilder WithSignatureVisualisation(DocumentDetailsConfig config)
+    public IDocumentProcessRequestBuilder WithSignatureVisualisation()
     {
-        _logger?.AppendDebug($"Builder with signature visualisation: {config.SignatureVisualRepresentation}");
-
-        var visualisationId = config.SignatureVisualRepresentation switch
-        {
-            SignatureRepresentation.Signature_in_any_place_chosen_by_the_recipient => AutentiVisualisations.Manual,
-            _ => AutentiVisualisations.AutentiSignatureCard
-        };
-
-        _constraints.Add(new Constraint
-        {
-            ConstrainedActions = [AutentiActions.SignatureApplication],
-            Classifiers = [AutentiConstraints.Visualisation],
-            Attributes = new ConstraintAttributes
-            {
-                VisualisationId = visualisationId
-            }
-        });
-
+        _logger?.AppendDebug($"Builder with signature visualisation");
+        _constraints.Add(_signatureVisualisationProvider.GetSignatureVisualisationConstraint());
         return this;
     }
 
