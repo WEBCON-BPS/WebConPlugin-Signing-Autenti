@@ -26,5 +26,5 @@ jobs:
         name: WebCon.Plugins.Signing.Autenti
         path: |
           WebCon.Plugins.Signing.Autenti/bin/Release/net9.0/WebCon.Plugins.Signing.Autenti.dll
-	        WebCon.Plugins.Signing.Autenti/bin/Release/net9.0/Polly.Core.dll
+          WebCon.Plugins.Signing.Autenti/bin/Release/net9.0/Polly.Core.dll
           WebCon.Plugins.Signing.Autenti/bin/Release/net9.0/WebCon.Plugins.Signing.Autenti.json
