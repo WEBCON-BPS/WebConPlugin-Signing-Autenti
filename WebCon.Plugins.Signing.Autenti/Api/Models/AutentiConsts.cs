@@ -67,6 +67,11 @@ public static class AutentiSignatureTypes
     public const string Advanced = "ADVANCED";
 }
 
+public static class AutentiIds
+{
+    public const string PublicSigningProcessIdPrefix = "PARTY-PUBLIC_SIGNING_PROCESS_ID:";
+}
+
 public static class AutentiIdentification
 {
     public const string ArmValue = "autenti-v3";

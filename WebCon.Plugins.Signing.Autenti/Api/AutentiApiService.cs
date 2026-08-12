@@ -25,7 +25,7 @@ public class AutentiApiService : IAutentiApiService
             .WithDocumentDetails(config.DocumentDetails)
             .WithParticipantsAsync()
             .WithOrganizationSender(config.DocumentDetails)
-            .WithSignatureVisualisation(config.DocumentDetails)
+            .WithSignatureVisualisation()
             .WithAttachmentsAsync()
             .WithTags()
             .BuildAsync();
