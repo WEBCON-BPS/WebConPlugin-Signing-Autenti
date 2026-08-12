@@ -45,9 +45,13 @@ public class DocumentDetailsConfig
     [ConfigEditableBool("Send document as organisation", DefaultValue = false)]
     public bool SendAsOrganization { get; set; }
 
-    [ConfigStudioTranslation("Wizualizacja podpisu", TranslationCulture.plPL)]
-    [ConfigEditableEnum("Visual representation of the signature")]
+    [ConfigStudioTranslation("Wizualizacja podpisu", TranslationCulture.plPL, Description = "W przypadku wyboru opcji 'Configuration_from_field', należy skonfigurować pole z wizualizacją podpisu")]
+    [ConfigEditableEnum("Visual representation of the signature", Description = "When 'Configuration_from_field' is selected, the signature visualization field must be configured")]
     public SignatureRepresentation SignatureVisualRepresentation { get; set; }
+
+    [ConfigStudioTranslation("Pole z wizualizacją podpisu", TranslationCulture.plPL, Description = "Opcjonalne pole, należy skonfigurować tylko kiedy w Wizualizacji podpisu wybrano opcję 'Configuration_from_field'")]
+    [ConfigEditableFormFieldID("Signature visualization field", FormFieldTypes = FormFieldTypes.Choice, Description = "Optional field, should be configured only when 'Configuration_from_field' is selected in Visual representation of the signature")]
+    public int? SignatureVisualizationFieldId { get; set; }
 
     [ConfigStudioTranslation("ID etykiety", TranslationCulture.plPL, Description = "Przy przekazaniu wielu etykiet wartości należy rozdzielić za pomocą średnika np. IdEtykiety1;IdEtykiety2")]
     [ConfigEditableText("Label ID", Description = "When passing multiple labels, values should be separated with a semicolon e.g. LabelId1;LabelId2")]
@@ -62,6 +66,7 @@ public enum SignatureRepresentation
 {
     Signature_on_additional_page_at_end_of_document = 0,
     Signature_in_any_place_chosen_by_the_recipient = 1,
+    Configuration_from_field = 2,
 }
 
 public class AttachmentsConfig
@@ -170,6 +175,10 @@ public class RecipentsListConfig : IConfigEditableItemList
     [ConfigStudioTranslation("Stanowisko w organizacji", TranslationCulture.plPL)]
     [ConfigEditableItemListColumnID("Position in the organisation")]
     public int? Position { get; set; }
+
+    [ConfigStudioTranslation("Autenti ID", TranslationCulture.plPL)]
+    [ConfigEditableItemListColumnID("Autenti ID")]
+    public int? AutentiId { get; set; }
 }
 
 public class ResponseConfig

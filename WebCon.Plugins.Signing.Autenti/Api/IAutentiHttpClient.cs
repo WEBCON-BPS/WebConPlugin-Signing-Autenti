@@ -14,4 +14,5 @@ public interface IAutentiHttpClient
     Task<List<TagsResponse>> GetTagsAsync();
     Task DocumentWithdrawalAsync(string documentId);
     Task<List<ParticipantsDetailsResponse>> GetDetailsOfParticipantsAsync(string documentId);
+    Task<DocumentDetailsResponse> GetDocumentDetailsAsync(string documentId);
 }

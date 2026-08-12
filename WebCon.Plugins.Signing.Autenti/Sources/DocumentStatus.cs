@@ -13,9 +13,7 @@ public class DocumentStatus : CustomDataSource<PluginConfiguration>
     private static readonly string[] Statuses =
     [
         "PROCESSING",
-        "SUCCESS",
         "COMPLETED ",
-        "FAILED",
         "WITHDRAWN",
         "ERROR",
         "REJECTED"

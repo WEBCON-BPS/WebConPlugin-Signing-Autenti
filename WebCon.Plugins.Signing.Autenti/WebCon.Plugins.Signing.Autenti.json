@@ -1,6 +1,14 @@
 ﻿{
   "extensions": [
     {
+      "guid": "4a5d9248-1bd9-425b-8d60-06eb2c0bc880",
+      "name": "[AUTENTI] Signature Visualisations",
+      "description": "Signature visualisations available in the signing process",
+      "assembly": "WebCon.Plugins.Signing.Autenti",
+      "class": "WebCon.Plugins.Signing.Autenti.Sources.SignatureVisualisations",
+      "type": "CustomDataSource"
+    },
+    {
       "guid": "3693ba54-a01c-4d0a-bb2b-9e2a14f466a4",
       "name": "[AUTENTI API] Document Withdrawal",
       "description": " Actions allow to withdraw document",
@@ -106,7 +114,8 @@
     }
   ],
   "dependencies": [
-    "WebCon.Plugins.Signing.Autenti"
+    "WebCon.Plugins.Signing.Autenti",
+    "Polly.Core"
   ],
   "serviceDependenciesPaths": [
     "ServiceReferenceDll"
