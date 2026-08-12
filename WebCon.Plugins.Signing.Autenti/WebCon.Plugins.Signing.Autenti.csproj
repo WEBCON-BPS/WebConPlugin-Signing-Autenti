@@ -29,6 +29,9 @@
     <Compile Include="Api\Models\TagsResponse.cs" />
     <Compile Include="Common\AuthorizationConfig.cs" />
     <Compile Include="Common\DocumentStatusInput.cs" />
+    <Compile Include="Common\RecipientStatus.cs" />
+    <Compile Include="Common\RecipientPartyMapper.cs" />
+    <Compile Include="Common\RecipientRowMatcher.cs" />
     <Compile Include="GetDocument\GetDocumentAction.cs" />
     <Compile Include="GetDocument\GetDocumentConfig.cs" />
     <Compile Include="GetStatuses\GetDocumentStatusAction.cs" />
@@ -56,9 +59,11 @@
     <Compile Include="SendForSignature\Providers\Enrichers\SigningOrderEnricher.cs" />
     <Compile Include="SendForSignature\Providers\Enrichers\SmsEnricher.cs" />
     <Compile Include="SendForSignature\Providers\IAttachmentsProvider.cs" />
+    <Compile Include="SendForSignature\Providers\ISignatureVisualisationProvider.cs" />
     <Compile Include="SendForSignature\Providers\ITagsProvider.cs" />
     <Compile Include="SendForSignature\Providers\IPartiesProvider.cs" />
     <Compile Include="SendForSignature\Providers\OrganizationSenderProvider.cs" />
+    <Compile Include="SendForSignature\Providers\SignatureVisualisationProvider.cs" />
     <Compile Include="SendForSignature\Providers\TagsProvider.cs" />
     <Compile Include="SendForSignature\Providers\PartiesProvider.cs" />
     <Compile Include="SendForSignature\Providers\PartiesValidator.cs" />
@@ -77,6 +82,7 @@
     <Compile Include="Sources\RecipientSignatureStatus.cs" />
     <Compile Include="Sources\SignatureTypes.cs" />
     <Compile Include="Sources\SignatureTypesConfig.cs" />
+    <Compile Include="Sources\SignatureVisualisations.cs" />
     <Compile Include="Withdrawal\WithdrawalAction.cs" />
     <Compile Include="Withdrawal\WithdrawalConfig.cs" />
   </ItemGroup>
@@ -91,6 +97,7 @@
     <Folder Include="Publish\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Polly.Core" Version="8.7.0" />
     <PackageReference Include="WEBCON.BPS.2026.SDK.Libraries" Version="26.1.1.26">
 		<ExcludeAssets>runtime</ExcludeAssets>
 	</PackageReference>
