@@ -40,6 +40,12 @@ public static class AutentiVisualisations
     public const string Manual = "VISUALISATION:MANUAL";
 }
 
+public static class AutentiFilePurposes
+{
+    public const string SignedContentFile = "SIGNED_CONTENT_FILE";
+    public const string SignatureCard = "SIGNATURE_CARD";
+}
+
 public static class AutentiRoles
 {
     public const string Signer = "SIGNER";

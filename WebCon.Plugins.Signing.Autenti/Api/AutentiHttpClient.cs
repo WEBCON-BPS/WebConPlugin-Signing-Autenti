@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web;
 using WebCon.Plugins.Signing.Autenti.Api.Models;
@@ -18,7 +16,7 @@ public class AutentiHttpClient(HttpClient httpClient, PluginLogger logger) : IAu
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+         IgnoreNullValues = true
     };
 
     private static readonly string SendDocumentAssertion = BuildSendDocumentAssertion();
@@ -91,7 +89,7 @@ public class AutentiHttpClient(HttpClient httpClient, PluginLogger logger) : IAu
         var responseJson = await response.Content.ReadAsStringAsync();
         logger.AppendDebug($"Get tags response: {responseJson}");
 
-        if (!responseJson.Trim().StartsWith('['))
+        if (!responseJson.Trim().StartsWith("["))
             responseJson = "[" + responseJson.Replace("}", "},").Trim().Trim(',') + "]";
         
         return JsonSerializer.Deserialize<List<TagsResponse>>(responseJson, JsonOptions);

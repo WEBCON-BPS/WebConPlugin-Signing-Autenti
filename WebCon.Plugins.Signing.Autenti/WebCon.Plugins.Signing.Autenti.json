@@ -117,6 +117,8 @@
     "WebCon.Plugins.Signing.Autenti",
     "Polly.Core"
   ],
-
-  "version": "26"
+  "serviceDependenciesPaths": [
+    "ServiceReferenceDll"
+  ],
+  "version": "25"
 }

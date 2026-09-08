@@ -12,7 +12,6 @@ namespace WebCon.Plugins.Signing.Autenti.GetDocument;
 
 public class GetDocumentAction : CustomAction<GetDocumentConfig>
 {
-    private const string SignedContentFilePurpose = "SIGNED_CONTENT_FILE";
 
     public override async Task RunAsync(RunCustomActionParams args)
     {
@@ -20,11 +19,7 @@ public class GetDocumentAction : CustomAction<GetDocumentConfig>
         {
             var httpClient = await CreateHttpClientAsync(args.Context);
             var documentId = GetRequiredDocumentId(args.Context);
-
-            var signedFile = await FindSignedFileAsync(httpClient, documentId);
-            var fileContent = await httpClient.DownloadFileAsync(documentId, signedFile.Id);
-
-            await SaveAttachmentAsync(args.Context, signedFile.Filename, fileContent);
+            await DownloadAndSaveFilesAsync(httpClient, documentId, args.Context);
         }
         catch (Exception ex)
         {
@@ -32,6 +27,27 @@ public class GetDocumentAction : CustomAction<GetDocumentConfig>
             args.HasErrors = true;
             args.Message = ex.Message;
         }
+    }
+
+    private async Task DownloadAndSaveFilesAsync(AutentiHttpClient httpClient, string documentId, ActionContextInfo context)
+    {
+        var documentDetails = await httpClient.GetDocumentDetailsAsync(documentId);
+
+        var signedFile = FindFile(documentDetails, documentId, AutentiFilePurposes.SignedContentFile);
+        var fileContent = await httpClient.DownloadFileAsync(documentId, signedFile.Id);
+        await SaveSignedFileToAttachmentsAsync(context, signedFile.Filename, fileContent);
+
+        if(!Configuration.Response.DownloadSignatureCard)
+            return;
+
+        var signatureCardFile = TryFindFile(documentDetails, documentId, AutentiFilePurposes.SignatureCard);
+        if (signatureCardFile == null)
+        {
+            context.PluginLogger.AppendInfo($"No signature card file found in document '{documentId}'.");
+            return;
+        }
+        var signCardFileContent = await httpClient.DownloadFileAsync(documentId, signatureCardFile.Id);
+        await SaveSigCardFileToAttachmentsAsync(context, signatureCardFile.Filename, signCardFileContent);
     }
 
     private async Task<AutentiHttpClient> CreateHttpClientAsync(ActionContextInfo context)
@@ -49,21 +65,34 @@ public class GetDocumentAction : CustomAction<GetDocumentConfig>
         return documentId;
     }
 
-    private static async Task<DocumentFileInfo> FindSignedFileAsync(AutentiHttpClient httpClient, string documentId)
+    private static DocumentFileInfo FindFile(DocumentDetailsResponse documentDetails, string documentId, string purpose)
     {
-        var documentDetails = await httpClient.GetDocumentDetailsAsync(documentId);
+        return TryFindFile(documentDetails, documentId, purpose) ??
+            throw new SDKArgumentException($"No {purpose} file found in document '{documentId}'. The document has not been signed yet.");
+    }
 
+    private static DocumentFileInfo? TryFindFile(DocumentDetailsResponse documentDetails, string documentId, string purpose)
+    {
         if (documentDetails.Files is not { Count: > 0 })
             throw new SDKArgumentException($"No files found in document '{documentId}'. The document may not have been processed yet.");
 
-        return documentDetails.Files.FirstOrDefault(f => f.FilePurpose == SignedContentFilePurpose)
-            ?? throw new SDKArgumentException($"No signed file found in document '{documentId}'. The document has not been signed yet.");
+        return documentDetails.Files.FirstOrDefault(f => f.FilePurpose == purpose);
     }
 
-    private async Task SaveAttachmentAsync(ActionContextInfo context, string defaultFileName, byte[] content)
+    private async Task SaveSignedFileToAttachmentsAsync(ActionContextInfo context, string defaultFileName, byte[] content)
+    {
+        await SaveAttachmentAsync(context, defaultFileName, content, Configuration.Response.FileName);
+    }
+
+    private async Task SaveSigCardFileToAttachmentsAsync(ActionContextInfo context, string defaultFileName, byte[] content)
+    {
+        await SaveAttachmentAsync(context, defaultFileName, content, Configuration.Response.FileNameSignCard);
+    }
+
+    private async Task SaveAttachmentAsync(ActionContextInfo context, string defaultFileName, byte[] content, string configuredFileName)
     {
         var config = Configuration.Response;
-        var fileName = !string.IsNullOrEmpty(config.FileName) ? config.FileName : defaultFileName;
+        var fileName = !string.IsNullOrEmpty(configuredFileName) ? configuredFileName : defaultFileName;
 
         if (!fileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
             fileName += ".pdf";

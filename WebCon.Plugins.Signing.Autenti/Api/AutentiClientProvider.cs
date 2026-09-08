@@ -1,7 +1,11 @@
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Security;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
@@ -91,8 +95,11 @@ public class AutentiClientProvider(ConnectionsHelper connectionsHelper, Authoriz
 
     private RSA ImportPrivateKeyFromPem(string pem)
     {
-        var rsa = RSA.Create();
-        rsa.ImportFromPem(pem.ToCharArray());
+        PemReader pemReader = new PemReader(new StringReader(pem));
+        var privateKey = pemReader.ReadObject() as RsaPrivateCrtKeyParameters;
+        var rsaParam = DotNetUtilities.ToRSAParameters(privateKey);
+        RSA rsa = RSA.Create();
+        rsa.ImportParameters(rsaParam);
         return rsa;
     }
 
