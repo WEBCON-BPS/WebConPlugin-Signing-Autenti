@@ -40,6 +40,14 @@ public class AttachmentResponse
     [ConfigStudioTranslation("Nadpisz załącznik o tej samej nazwie", TranslationCulture.plPL)]
     [ConfigEditableBool("Overwrite attachment with the same name")]
     public bool OverwriteAttachment { get; set; }
+
+    [ConfigStudioTranslation("Pobierz kartę podpisów", TranslationCulture.plPL, Description = "Karta podpisów jest zapisywana jako osobny załącznik. Autenti udostępnia ten plik wyłącznie dla procesów z wizualizacją \"Podpis w dowolnym miejscu wybranym przez odbiorcę\".")]
+    [ConfigEditableBool("Download signature card", DefaultValue = false, Description = "The signature card is saved as a separate attachment. Autenti provides this file only for processes with the \"Signature in any place chosen by the recipient\" visualisation.")]
+    public bool DownloadSignatureCard { get; set; }
+
+    [ConfigStudioTranslation("Nazwa pliku z kartą podpisów", TranslationCulture.plPL)]
+    [ConfigEditableText("Signature card file name")]
+    public string FileNameSignCard { get; set; }
 }
 
 public enum Category
